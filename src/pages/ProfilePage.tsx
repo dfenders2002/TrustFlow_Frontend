@@ -10,6 +10,7 @@ import {
 } from '../actions/userActions';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfilePage.module.css';
+import { toast } from 'react-toastify';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +26,17 @@ const ProfilePage: React.FC = () => {
     }
   }, [user, dispatch]);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (user) {
-      dispatch(updateUser({ ...user, username }));
+      try {
+        // Dispatch the updateUser thunk and unwrap the result
+        await dispatch(updateUser({ ...user, username })).unwrap();
+        // Show success toast
+        toast.success('Username updated successfully!');
+      } catch (err: any) {
+        // Show error toast
+        toast.error(err || 'Failed to update username.');
+      }
     }
   };
 
@@ -51,6 +60,7 @@ const ProfilePage: React.FC = () => {
       <div className={styles.inputGroup}>
         <label htmlFor="username">Username</label>
         <input
+          id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className={styles.input}
