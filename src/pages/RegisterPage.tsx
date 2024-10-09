@@ -1,69 +1,51 @@
 // src/pages/RegisterPage.tsx
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../api/authService';
-import { AuthResponse, User, UserRegisterRequest } from '../domains/User';
+import { UserRegisterRequest } from '../domains/User';
 import styles from './RegisterPage.module.css';
+import { registerUser } from '../actions/userActions';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const RegisterPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const { user, error, loading } = useAppSelector((state) => state.user);
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-
-    const newUser: UserRegisterRequest = { username, password, email };
-    const response: AuthResponse = await authService.register(newUser);
-
-    if ('user' in response && response.status === 'User registered') {
-      navigate('/');
-    } else {
-      setError(response.message || 'Registration failed');
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
     }
+  }, [user, navigate]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const username = (e.currentTarget as any)['username'].value;
+    const email = (e.currentTarget as any)['email'].value;
+    const password = (e.currentTarget as any)['password'].value;
+    const userData: UserRegisterRequest = { username, email, password };
+    dispatch(registerUser(userData));
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleRegister}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Register</h2>
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.inputGroup}>
           <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" id="username" name="username" required />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <input type="email" id="email" name="email" required />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" id="password" name="password" required />
         </div>
         <button type="submit" className={styles.button}>
-          Register
+          {loading ? 'Registering...' : 'Register'}
         </button>
         <button
           type="button"

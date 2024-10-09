@@ -10,7 +10,7 @@ export interface User {
   username: string;
   password: string;
   email: string;
-  role?: Role;
+  role: Role;
 }
 
 export interface AuthResponse {
@@ -23,6 +23,11 @@ export interface UserRegisterRequest {
   username: string;
   password: string;
   email: string;
+}
+
+export interface UserLoginRequest {
+  username: string;
+  password: string;
 }
 
 export interface SuccessResponse {

@@ -1,54 +1,46 @@
 // src/pages/LoginPage.tsx
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../api/authService';
-import { User } from '../domains/User';
+import { UserLoginRequest } from '../domains/User';
 import styles from './LoginPage.module.css';
+import { loginUser } from '../actions/userActions';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const { user, error, loading } = useAppSelector((state) => state.user);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const response = await authService.login(username, password);
-    if (response.status === 'Logged in' && response.user) {
-      navigate('/dashboard');
-    } else {
-      setError(response.message || 'Login failed');
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
     }
+  }, [user, navigate]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const username = (e.currentTarget as any)['username'].value;
+    const password = (e.currentTarget as any)['password'].value;
+    const userData: UserLoginRequest = { username, password };
+    dispatch(loginUser(userData));
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleLogin}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.inputGroup}>
           <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" id="username" name="username" required />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" id="password" name="password" required />
         </div>
         <button type="submit" className={styles.button}>
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
         <button
           type="button"

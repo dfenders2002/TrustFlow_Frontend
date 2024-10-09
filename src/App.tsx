@@ -1,14 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
+import { useAppSelector } from './hooks';
 import RegisterPage from './pages/RegisterPage';
+
 const App: React.FC = () => {
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={user ? <Navigate to="/profile" /> : <LoginPage />}
+        />
         <Route path="/register" element={<RegisterPage />} />
-        {/* Voeg hier meer routes toe indien nodig */}
+        <Route
+          path="/profile"
+          element={user ? <ProfilePage /> : <Navigate to="/" />}
+        />
       </Routes>
     </Router>
   );

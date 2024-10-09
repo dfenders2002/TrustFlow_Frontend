@@ -6,6 +6,8 @@ import {
   AuthResponse,
   UserRegisterRequest,
   SuccessResponse,
+  UserLoginRequest,
+  Role,
 } from '../domains/User';
 
 const API_BASE_URL = 'http://localhost:8080';
@@ -29,11 +31,11 @@ const authService = {
     }
   },
 
-  login: async (username: string, password: string): Promise<AuthResponse> => {
+  login: async (user: UserLoginRequest): Promise<AuthResponse> => {
     try {
       const response = await axios.post<AuthResponse>(
         `${API_BASE_URL}/login`,
-        { username, password },
+        user,
         {
           withCredentials: true,
         },
@@ -43,6 +45,20 @@ const authService = {
       return {
         status: 'error',
         message: error.response?.data?.message || 'Login failed',
+      };
+    }
+  },
+
+  getUser: async (): Promise<AuthResponse> => {
+    try {
+      const response = await axios.get<AuthResponse>(`${API_BASE_URL}/user`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error: any) {
+      return {
+        status: 'error',
+        message: error.response?.data?.message || 'Failed to fetch user',
       };
     }
   },
@@ -64,6 +80,7 @@ const authService = {
 
   updateUser: async (user: User): Promise<{ status: string }> => {
     try {
+      user.role = Role.USER;
       const response = await axios.put<{ status: string }>(
         `${API_BASE_URL}/update`,
         user,
