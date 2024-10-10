@@ -1,17 +1,16 @@
 /* src/components/TaskList.module.css */
 .taskList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .taskItem {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .taskItem button {
-    margin-left: 8px;
-  }
-  
+  list-style: none;
+  padding: 0;
+}
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.taskItem button {
+  margin-left: 8px;
+}
