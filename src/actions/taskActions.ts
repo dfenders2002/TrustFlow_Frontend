@@ -12,10 +12,10 @@ export const fetchPendingTasks = createAsyncThunk(
       return response.tasks;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to fetch pending tasks',
+        response.message || 'Failed to fetch pending tasks'
       );
     }
-  },
+  }
 );
 
 // Fetch Completed Tasks
@@ -27,10 +27,10 @@ export const fetchCompletedTasks = createAsyncThunk(
       return response.tasks;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to fetch completed tasks',
+        response.message || 'Failed to fetch completed tasks'
       );
     }
-  },
+  }
 );
 
 // Create Task
@@ -42,10 +42,10 @@ export const createTask = createAsyncThunk(
       return response.task;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to create task',
+        response.message || 'Failed to create task'
       );
     }
-  },
+  }
 );
 
 // Complete Task
@@ -57,10 +57,10 @@ export const completeTask = createAsyncThunk(
       return id;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to complete task',
+        response.message || 'Failed to complete task'
       );
     }
-  },
+  }
 );
 
 // Delete Task
@@ -72,8 +72,8 @@ export const deleteTask = createAsyncThunk(
       return id;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to delete task',
+        response.message || 'Failed to delete task'
       );
     }
-  },
+  }
 );

@@ -20,7 +20,7 @@ const authService = {
         user,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -38,7 +38,7 @@ const authService = {
         user,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -70,7 +70,7 @@ const authService = {
         {},
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -85,7 +85,7 @@ const authService = {
         user,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -99,7 +99,7 @@ const authService = {
         `${API_BASE_URL}/delete`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -117,7 +117,7 @@ const authService = {
         `${API_BASE_URL}/users`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -129,14 +129,14 @@ const authService = {
   },
 
   deleteOtherUser: async (
-    id: number,
+    id: number
   ): Promise<{ status: string; message?: string }> => {
     try {
       const response = await axios.delete<{ status: string }>(
         `${API_BASE_URL}/users/${id}`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {

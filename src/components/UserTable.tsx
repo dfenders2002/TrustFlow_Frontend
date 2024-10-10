@@ -36,7 +36,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, currentUserId }) => {
         </tr>
       </thead>
       <tbody>
-        {users.map((u) => (
+        {users.map(u => (
           <tr key={u.id}>
             <td>{u.username}</td>
             <td>{u.email}</td>

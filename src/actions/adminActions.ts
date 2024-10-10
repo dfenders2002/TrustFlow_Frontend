@@ -10,10 +10,10 @@ export const fetchAllUsers = createAsyncThunk(
       return response.users;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to fetch users',
+        response.message || 'Failed to fetch users'
       );
     }
-  },
+  }
 );
 
 export const deleteUserById = createAsyncThunk(
@@ -24,8 +24,8 @@ export const deleteUserById = createAsyncThunk(
       return id;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Failed to delete user',
+        response.message || 'Failed to delete user'
       );
     }
-  },
+  }
 );

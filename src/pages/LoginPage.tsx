@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user, error, loading } = useAppSelector((state) => state.user);
+  const { user, error, loading } = useAppSelector(state => state.user);
 
   useEffect(() => {
     if (user) {

@@ -31,10 +31,10 @@ const taskSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Fetch Pending Tasks
     builder
-      .addCase(fetchPendingTasks.pending, (state) => {
+      .addCase(fetchPendingTasks.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -43,7 +43,7 @@ const taskSlice = createSlice({
         (state, action: PayloadAction<Task[]>) => {
           state.loading = false;
           state.pending = action.payload;
-        },
+        }
       )
       .addCase(fetchPendingTasks.rejected, (state, action) => {
         state.loading = false;
@@ -51,7 +51,7 @@ const taskSlice = createSlice({
       })
 
       // Fetch Completed Tasks
-      .addCase(fetchCompletedTasks.pending, (state) => {
+      .addCase(fetchCompletedTasks.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -60,7 +60,7 @@ const taskSlice = createSlice({
         (state, action: PayloadAction<Task[]>) => {
           state.loading = false;
           state.completed = action.payload;
-        },
+        }
       )
       .addCase(fetchCompletedTasks.rejected, (state, action) => {
         state.loading = false;
@@ -68,7 +68,7 @@ const taskSlice = createSlice({
       })
 
       // Create Task
-      .addCase(createTask.pending, (state) => {
+      .addCase(createTask.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -82,7 +82,7 @@ const taskSlice = createSlice({
       })
 
       // Complete Task
-      .addCase(completeTask.pending, (state) => {
+      .addCase(completeTask.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -91,14 +91,14 @@ const taskSlice = createSlice({
         (state, action: PayloadAction<number>) => {
           state.loading = false;
           const taskIndex = state.pending.findIndex(
-            (task) => task.id === action.payload,
+            task => task.id === action.payload
           );
           if (taskIndex !== -1) {
             const [completedTask] = state.pending.splice(taskIndex, 1);
             completedTask.status = Status.COMPLETED;
             state.completed.push(completedTask);
           }
-        },
+        }
       )
       .addCase(completeTask.rejected, (state, action) => {
         state.loading = false;
@@ -106,17 +106,17 @@ const taskSlice = createSlice({
       })
 
       // Delete Task
-      .addCase(deleteTask.pending, (state) => {
+      .addCase(deleteTask.pending, state => {
         state.loading = true;
         state.error = null;
       })
       .addCase(deleteTask.fulfilled, (state, action: PayloadAction<number>) => {
         state.loading = false;
         state.pending = state.pending.filter(
-          (task) => task.id !== action.payload,
+          task => task.id !== action.payload
         );
         state.completed = state.completed.filter(
-          (task) => task.id !== action.payload,
+          task => task.id !== action.payload
         );
       })
       .addCase(deleteTask.rejected, (state, action) => {

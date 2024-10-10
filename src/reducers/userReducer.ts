@@ -30,10 +30,10 @@ const userSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Handle login
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginUser.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -46,7 +46,7 @@ const userSlice = createSlice({
         state.error = action.payload as string;
       })
       // Handle registration
-      .addCase(registerUser.pending, (state) => {
+      .addCase(registerUser.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -59,7 +59,7 @@ const userSlice = createSlice({
         state.error = action.payload as string;
       })
       // Handle logout
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(logoutUser.fulfilled, state => {
         state.user = null;
       })
       // Handle fetching current user
@@ -67,9 +67,9 @@ const userSlice = createSlice({
         fetchCurrentUser.fulfilled,
         (state, action: PayloadAction<User>) => {
           state.user = action.payload;
-        },
+        }
       )
-      .addCase(fetchCurrentUser.rejected, (state) => {
+      .addCase(fetchCurrentUser.rejected, state => {
         state.user = null;
       })
       // Handle updating user
@@ -79,7 +79,7 @@ const userSlice = createSlice({
         }
       })
       // Handle deleting user
-      .addCase(deleteUser.fulfilled, (state) => {
+      .addCase(deleteUser.fulfilled, state => {
         state.user = null;
       });
   },

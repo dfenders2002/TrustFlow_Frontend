@@ -12,7 +12,7 @@ interface AdminSectionProps {
 const AdminSection: React.FC<AdminSectionProps> = ({ currentUserId }) => {
   const dispatch = useAppDispatch();
 
-  const { allUsers, loading, error } = useAppSelector((state) => state.admin);
+  const { allUsers, loading, error } = useAppSelector(state => state.admin);
 
   useEffect(() => {
     dispatch(fetchAllUsers());

@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector(state => state.user);
 
   return (
     <Router>

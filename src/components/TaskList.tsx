@@ -12,7 +12,7 @@ interface TaskListProps {
 const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete }) => {
   return (
     <ul className={styles.taskList}>
-      {tasks.map((task) => (
+      {tasks.map(task => (
         <li key={task.id} className={styles.taskItem}>
           <span>
             {task.description} - <strong>{task.priority}</strong>

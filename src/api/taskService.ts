@@ -17,7 +17,7 @@ const taskService = {
         task,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -29,7 +29,7 @@ const taskService = {
   },
 
   completeTask: async (
-    id: number,
+    id: number
   ): Promise<{ status: string; message?: string }> => {
     try {
       const response = await axios.put<{ status: string }>(
@@ -37,7 +37,7 @@ const taskService = {
         {},
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -49,14 +49,14 @@ const taskService = {
   },
 
   deleteTask: async (
-    id: number,
+    id: number
   ): Promise<{ status: string; message?: string }> => {
     try {
       const response = await axios.delete<{ status: string }>(
         `${API_BASE_URL}/tasks/${id}`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -73,7 +73,7 @@ const taskService = {
         `${API_BASE_URL}/tasks/pending`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -91,7 +91,7 @@ const taskService = {
         `${API_BASE_URL}/tasks/completed`,
         {
           withCredentials: true,
-        },
+        }
       );
       return response.data;
     } catch (error: any) {

@@ -22,7 +22,7 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
 
   // Selectors for user
-  const { user, loading, error } = useAppSelector((state) => state.user);
+  const { user, loading, error } = useAppSelector(state => state.user);
 
   // Selectors for tasks
   const {
@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
     completed,
     loading: tasksLoading,
     error: tasksError,
-  } = useAppSelector((state) => state.tasks);
+  } = useAppSelector(state => state.tasks);
 
   useEffect(() => {
     if (!user) {

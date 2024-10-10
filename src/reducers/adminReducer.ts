@@ -22,10 +22,10 @@ const adminSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Handle fetchAllUsers
-      .addCase(fetchAllUsers.pending, (state) => {
+      .addCase(fetchAllUsers.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -34,14 +34,14 @@ const adminSlice = createSlice({
         (state, action: PayloadAction<User[]>) => {
           state.loading = false;
           state.allUsers = action.payload;
-        },
+        }
       )
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       // Handle deleteUserById
-      .addCase(deleteUserById.pending, (state) => {
+      .addCase(deleteUserById.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -50,9 +50,9 @@ const adminSlice = createSlice({
         (state, action: PayloadAction<number>) => {
           state.loading = false;
           state.allUsers = state.allUsers.filter(
-            (user) => user.id !== action.payload,
+            user => user.id !== action.payload
           );
-        },
+        }
       )
       .addCase(deleteUserById.rejected, (state, action) => {
         state.loading = false;

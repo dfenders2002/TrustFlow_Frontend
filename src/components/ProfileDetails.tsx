@@ -48,7 +48,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ user }) => {
         <input
           id="username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={e => setUsername(e.target.value)}
           className={styles.input}
         />
       </div>

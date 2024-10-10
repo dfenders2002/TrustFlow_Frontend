@@ -25,13 +25,13 @@ const TaskCreate: React.FC<TaskCreateProps> = ({ onCreate }) => {
       <input
         type="text"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={e => setDescription(e.target.value)}
         placeholder="Task description"
         required
       />
       <select
         value={priority}
-        onChange={(e) => setPriority(e.target.value as Priority)}
+        onChange={e => setPriority(e.target.value as Priority)}
       >
         <option value={Priority.LOW}>Low</option>
         <option value={Priority.MEDIUM}>Medium</option>

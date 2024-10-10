@@ -11,7 +11,7 @@ export const loginUser = createAsyncThunk(
     } else {
       return thunkAPI.rejectWithValue(response.message || 'Login failed');
     }
-  },
+  }
 );
 
 export const registerUser = createAsyncThunk(
@@ -22,10 +22,10 @@ export const registerUser = createAsyncThunk(
       return response.user;
     } else {
       return thunkAPI.rejectWithValue(
-        response.message || 'Registration failed',
+        response.message || 'Registration failed'
       );
     }
-  },
+  }
 );
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
@@ -41,7 +41,7 @@ export const fetchCurrentUser = createAsyncThunk(
     } else {
       return thunkAPI.rejectWithValue('Failed to fetch user');
     }
-  },
+  }
 );
 
 export const updateUser = createAsyncThunk(
@@ -53,7 +53,7 @@ export const updateUser = createAsyncThunk(
     } else {
       return thunkAPI.rejectWithValue('Update failed');
     }
-  },
+  }
 );
 
 export const deleteUser = createAsyncThunk(
@@ -65,5 +65,5 @@ export const deleteUser = createAsyncThunk(
     } else {
       return thunkAPI.rejectWithValue('Deletion failed');
     }
-  },
+  }
 );
