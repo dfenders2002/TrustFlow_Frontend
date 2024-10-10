@@ -26,7 +26,7 @@ const AdminSection: React.FC<AdminSectionProps> = ({ currentUserId }) => {
       {!loading && allUsers.length > 0 && (
         <UserTable users={allUsers} currentUserId={currentUserId} />
       )}
-      {!loading && allUsers.length === 0 && <p>Geen gebruikers gevonden.</p>}
+      {!loading && allUsers.length === 0 && <p>No Users Found.</p>}
     </div>
   );
 };

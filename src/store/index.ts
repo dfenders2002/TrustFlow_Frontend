@@ -1,6 +1,8 @@
+// src/store/index.ts
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../reducers/userReducer';
 import adminReducer from '../reducers/adminReducer';
+import taskReducer from '../reducers/taskReducer';
 
 const persistedUser = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user')!)
@@ -10,6 +12,7 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     admin: adminReducer,
+    tasks: taskReducer,
   },
   preloadedState: {
     user: {
@@ -19,6 +22,12 @@ const store = configureStore({
     },
     admin: {
       allUsers: [],
+      loading: false,
+      error: null,
+    },
+    tasks: {
+      pending: [],
+      completed: [],
       loading: false,
       error: null,
     },
