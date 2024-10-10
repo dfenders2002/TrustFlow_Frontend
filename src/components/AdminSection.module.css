@@ -1,0 +1,8 @@
+/* src/components/AdminSection.module.css */
+.adminSection {
+  margin-top: 40px;
+}
+
+.error {
+  color: red;
+}
