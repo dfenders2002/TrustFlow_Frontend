@@ -1,21 +1,30 @@
-// src/pages/ProfilePage.tsx
-
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import {
   fetchCurrentUser,
   updateUser,
-  deleteUser,
+  deleteUser as deleteOwnUser,
   logoutUser,
 } from '../actions/userActions';
+import { fetchAllUsers, deleteUserById } from '../actions/adminActions'; // Import admin acties
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfilePage.module.css';
 import { toast } from 'react-toastify';
-
+import { UsersResponse } from '../domains/User';
 const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  // Selectors voor user
   const { user, loading, error } = useAppSelector((state) => state.user);
+
+  // Selectors voor admin
+  const {
+    allUsers,
+    loading: adminLoading,
+    error: adminError,
+  } = useAppSelector((state) => state.admin);
+
   const [username, setUsername] = useState('');
 
   useEffect(() => {
@@ -23,6 +32,10 @@ const ProfilePage: React.FC = () => {
       dispatch(fetchCurrentUser());
     } else {
       setUsername(user.username);
+      // Als de gebruiker een admin is, haal alle gebruikers op
+      if (user.role === 'ADMIN') {
+        dispatch(fetchAllUsers());
+      }
     }
   }, [user, dispatch]);
 
@@ -41,13 +54,27 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteUser());
+    dispatch(deleteOwnUser());
     navigate('/');
   };
 
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate('/');
+  };
+
+  // Handler om een andere gebruiker te verwijderen
+  const handleDeleteOtherUser = async (id: number) => {
+    if (
+      window.confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?')
+    ) {
+      try {
+        await dispatch(deleteUserById(id)).unwrap();
+        toast.success('Gebruiker succesvol verwijderd!');
+      } catch (err: any) {
+        toast.error(err || 'Verwijderen mislukt.');
+      }
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -75,6 +102,49 @@ const ProfilePage: React.FC = () => {
       <button onClick={handleLogout} className={styles.logoutButton}>
         Logout
       </button>
+
+      {/* Admin-sectie */}
+      {user.role === 'ADMIN' && (
+        <div className={styles.adminSection}>
+          <h3>Alle Gebruikers</h3>
+          {adminLoading && <div>Loading users...</div>}
+          {adminError && <p className={styles.error}>{adminError}</p>}
+          {!adminLoading && allUsers.length > 0 && (
+            <table className={styles.userTable}>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Acties</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allUsers.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.username}</td>
+                    <td>{u.email}</td>
+                    <td>{u.role}</td>
+                    <td>
+                      {u.id !== user.id && ( // Zorg ervoor dat admin zichzelf niet kan verwijderen via deze tabel
+                        <button
+                          onClick={() => handleDeleteOtherUser(u.id!)}
+                          className={styles.deleteButton}
+                        >
+                          Verwijderen
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          {!adminLoading && allUsers.length === 0 && (
+            <p>Geen gebruikers gevonden.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

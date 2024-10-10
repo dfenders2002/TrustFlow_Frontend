@@ -19,6 +19,11 @@ export interface AuthResponse {
   message?: string;
 }
 
+export interface UsersResponse {
+  status: string;
+  users: User[];
+}
+
 export interface UserRegisterRequest {
   username: string;
   password: string;

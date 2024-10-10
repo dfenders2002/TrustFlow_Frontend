@@ -106,6 +106,46 @@ const authService = {
       return { status: 'error' };
     }
   },
+
+  getAllUsers: async (): Promise<{
+    status: string;
+    users?: User[];
+    message?: string;
+  }> => {
+    try {
+      const response = await axios.get<{ status: string; users: User[] }>(
+        `${API_BASE_URL}/users`,
+        {
+          withCredentials: true,
+        },
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        status: 'error',
+        message: error.response?.data?.status || 'Failed to fetch users',
+      };
+    }
+  },
+
+  deleteOtherUser: async (
+    id: number,
+  ): Promise<{ status: string; message?: string }> => {
+    try {
+      const response = await axios.delete<{ status: string }>(
+        `${API_BASE_URL}/users/${id}`,
+        {
+          withCredentials: true,
+        },
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        status: 'error',
+        message: error.response?.data?.status || 'Failed to delete user',
+      };
+    }
+  },
 };
 
 export default authService;
