@@ -80,7 +80,6 @@ const authService = {
 
   updateUser: async (user: User): Promise<{ status: string }> => {
     try {
-      user.role = Role.USER;
       const response = await axios.put<{ status: string }>(
         `${API_BASE_URL}/update`,
         user,
