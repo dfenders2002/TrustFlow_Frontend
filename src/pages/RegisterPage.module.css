@@ -1,68 +1,76 @@
+/* src/pages/RegisterPage.module.css */
+
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #45a049;
+}
+
+.loginButton {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.loginButton:hover {
+  background: #0b7dda;
 }
 
 .error {
   color: red;
-}
-
-.inputGroup {
-  margin-bottom: 15px;
-}
-
-.input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.button {
-  padding: 10px 15px;
-  margin-right: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.deleteButton {
-  padding: 10px 15px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.logoutButton {
-  padding: 10px 15px;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.adminSection {
-  margin-top: 40px;
-}
-
-.userTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.userTable th,
-.userTable td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.userTable th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-.userTable tr:hover {
-  background-color: #f1f1f1;
+  text-align: center;
+  margin-bottom: 1rem;
 }

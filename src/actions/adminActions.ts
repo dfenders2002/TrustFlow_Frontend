@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import authService from '../api/authService';
 import { User } from '../domains/User';
 
-// Actie om alle gebruikers op te halen
 export const fetchAllUsers = createAsyncThunk(
   'admin/fetchAllUsers',
   async (_, thunkAPI) => {
@@ -17,7 +16,6 @@ export const fetchAllUsers = createAsyncThunk(
   },
 );
 
-// Actie om een andere gebruiker te verwijderen
 export const deleteUserById = createAsyncThunk(
   'admin/deleteUserById',
   async (id: number, thunkAPI) => {
